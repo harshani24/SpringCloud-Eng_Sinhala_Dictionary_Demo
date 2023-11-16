@@ -38,7 +38,7 @@ public class DictionaryServiceImpl implements DictionaryService{
 //                                                source_language(dictionaryDTO.getSource_language()).
 //                                                target_language(dictionaryDTO.getTarget_language()).build();
 
-        //.uri("lb://translation-service/api/v1/translations/find")
+        //.uri("http://localhost:8080/api/v1/translations/find")
         Mono<String[]> translatedWordsMono = webClientBuilder.build()
                 .post()
                 .uri("lb://translation-service/api/v1/translations/find") // Adjust the endpoint based on your translation service API
