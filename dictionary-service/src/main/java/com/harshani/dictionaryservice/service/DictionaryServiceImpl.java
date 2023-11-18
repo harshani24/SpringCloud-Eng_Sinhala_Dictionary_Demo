@@ -32,12 +32,6 @@ public class DictionaryServiceImpl implements DictionaryService{
 
     public List<String> translateWord(DictionaryDTO dictionaryDTO){
 
-//        SearchRequestDTO searchRequestDTO = SearchRequestDTO.
-//                                                builder().
-//                                                word(dictionaryDTO.getWord()).
-//                                                source_language(dictionaryDTO.getSource_language()).
-//                                                target_language(dictionaryDTO.getTarget_language()).build();
-
         //.uri("http://localhost:8080/api/v1/translations/find")
         Mono<String[]> translatedWordsMono = webClientBuilder.build()
                 .post()

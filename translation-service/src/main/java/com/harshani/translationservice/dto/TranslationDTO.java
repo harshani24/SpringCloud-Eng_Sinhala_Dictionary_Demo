@@ -2,10 +2,12 @@ package com.harshani.translationservice.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class TranslationDTO {
     private String word;
-    private String source_language;
-    private String target_word;
-    private String target_language;
+    private String sourceLanguage;
+    private List<String> targetWord;
+    private String targetLanguage;
 }

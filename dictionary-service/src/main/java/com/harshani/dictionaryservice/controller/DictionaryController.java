@@ -5,6 +5,7 @@ import com.harshani.dictionaryservice.model.Dictionary;
 import com.harshani.dictionaryservice.service.DictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,23 +17,22 @@ public class DictionaryController {
     @Autowired
     DictionaryService dictionaryService;
 
-
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Dictionary> getAllDictionaryHistory(){
-        return dictionaryService.getDictionaryHistory();
+    public ResponseEntity<List<Dictionary>> getAllDictionaryHistory(){
+        List<Dictionary> allDictionaryList = dictionaryService.getDictionaryHistory();
+        return new ResponseEntity<>(allDictionaryList, HttpStatus.OK );
     }
 
     @GetMapping("/user/{username}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Dictionary> getAllDictionaryHistoryByUser(@PathVariable("username") String user){
-        return dictionaryService.getDictionaryHistoryByUser(user);
+    public ResponseEntity<List<Dictionary>> getAllDictionaryHistoryByUser(@PathVariable("username") String user){
+        List<Dictionary> allDictionaryListForUser = dictionaryService.getDictionaryHistoryByUser(user);
+        return new ResponseEntity<>(allDictionaryListForUser, HttpStatus.OK );
     }
 
     @PostMapping("/find")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<String> translateWord(@RequestBody DictionaryDTO dictionaryDTO){
-        return dictionaryService.translateWord(dictionaryDTO);
+    public ResponseEntity<List<String>> translateWord(@RequestBody DictionaryDTO dictionaryDTO){
+        List<String> translatedWordList = dictionaryService.translateWord(dictionaryDTO);
+        return new ResponseEntity<>(translatedWordList, HttpStatus.CREATED);
     }
 }
 
