@@ -3,6 +3,7 @@ package com.harshani.dictionaryservice.controller;
 import com.harshani.dictionaryservice.dto.DictionaryDTO;
 import com.harshani.dictionaryservice.model.Dictionary;
 import com.harshani.dictionaryservice.service.DictionaryService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +31,14 @@ public class DictionaryController {
     }
 
     @PostMapping("/find")
+    @CircuitBreaker(name="translation", fallbackMethod = "fallbackMethod")
     public ResponseEntity<List<String>> translateWord(@RequestBody DictionaryDTO dictionaryDTO){
         List<String> translatedWordList = dictionaryService.translateWord(dictionaryDTO);
         return new ResponseEntity<>(translatedWordList, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<String> fallbackMethod(DictionaryDTO dictionaryDTO , RuntimeException runtimeException){
+        return  new ResponseEntity<>("Server may down or slow performance!!!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 
