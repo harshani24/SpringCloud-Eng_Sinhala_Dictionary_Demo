@@ -4,15 +4,20 @@ import com.harshani.dictionaryservice.dto.DictionaryDTO;
 import com.harshani.dictionaryservice.model.Dictionary;
 import com.harshani.dictionaryservice.service.DictionaryService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/v1/dictionaries")
+@Slf4j
 public class DictionaryController {
 
     @Autowired
@@ -32,13 +37,32 @@ public class DictionaryController {
 
     @PostMapping("/find")
     @CircuitBreaker(name="translation", fallbackMethod = "fallbackMethod")
-    public ResponseEntity<List<String>> translateWord(@RequestBody DictionaryDTO dictionaryDTO){
-        List<String> translatedWordList = dictionaryService.translateWord(dictionaryDTO);
-        return new ResponseEntity<>(translatedWordList, HttpStatus.CREATED);
+    @TimeLimiter(name="translation", fallbackMethod = "fallbackMethodTimeOut")
+    @Retry(name = "translation")
+    public CompletableFuture<ResponseEntity<List<String>>> translateWord(@RequestBody DictionaryDTO dictionaryDTO){
+        log.info("Retry 1,2,3");
+        return CompletableFuture.supplyAsync(() -> {
+            try{
+                List<String> translatedWordList = dictionaryService.translateWord(dictionaryDTO);
+                return new ResponseEntity<>(translatedWordList, HttpStatus.CREATED);
+            }
+            catch(Exception e){
+                throw new RuntimeException("Translation failed", e);
+            }
+        });
     }
 
-    public ResponseEntity<String> fallbackMethod(DictionaryDTO dictionaryDTO , RuntimeException runtimeException){
-        return  new ResponseEntity<>("Server may down or slow performance!!!", HttpStatus.INTERNAL_SERVER_ERROR);
+    public CompletableFuture<ResponseEntity<String>> fallbackMethod(DictionaryDTO dictionaryDTO , Throwable throwable){
+        return CompletableFuture.supplyAsync(() -> {
+            return  new ResponseEntity<>("Server may down!!!", HttpStatus.INTERNAL_SERVER_ERROR);
+        });
     }
+
+    public CompletableFuture<ResponseEntity<String>> fallbackMethodTimeOut(DictionaryDTO dictionaryDTO , Throwable throwable){
+        return CompletableFuture.supplyAsync(() -> {
+            return  new ResponseEntity<>("Time Out. Network Slow Performance!!!", HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+    }
+
 }
 
