@@ -1,0 +1,16 @@
+
+`	java:S1122"FDefine and throw a dedicated exception instead of using a generic one.(´Ÿ«ûÿÿÿÿ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ
+Y
+java:S11727"CRemove these unused method parameters "dictionaryDTO", "throwable".(«Õ¨è
+n
+java:S16028"SRemove useless curly braces around statement and then remove useless return keyword(şÍ¥«ùÿÿÿÿ
+^
+java:S1172="CRemove these unused method parameters "dictionaryDTO", "throwable".(äÉİ¾ıÿÿÿÿ
+n
+java:S1602>"SRemove useless curly braces around statement and then remove useless return keyword(şÍ¥«ùÿÿÿÿ
+^
+java:S1172C"CRemove these unused method parameters "dictionaryDTO", "throwable".(ÌÇ™ûÿÿÿÿ
+n
+java:S1602D"SRemove useless curly braces around statement and then remove useless return keyword(şÍ¥«ùÿÿÿÿ

@@ -38,7 +38,7 @@ public class DictionaryController {
     @PostMapping("/find")
     @CircuitBreaker(name="translation", fallbackMethod = "fallbackMethod")
     @TimeLimiter(name="translation", fallbackMethod = "fallbackMethodTimeOut")
-    @Retry(name = "translation")
+    @Retry(name = "translation", fallbackMethod = "fallbackMethodRetryFailure")
     public CompletableFuture<ResponseEntity<List<String>>> translateWord(@RequestBody DictionaryDTO dictionaryDTO){
         log.info("Retry 1,2,3");
         return CompletableFuture.supplyAsync(() -> {
@@ -61,6 +61,12 @@ public class DictionaryController {
     public CompletableFuture<ResponseEntity<String>> fallbackMethodTimeOut(DictionaryDTO dictionaryDTO , Throwable throwable){
         return CompletableFuture.supplyAsync(() -> {
             return  new ResponseEntity<>("Time Out. Network Slow Performance!!!", HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+    }
+
+    public CompletableFuture<ResponseEntity<String>> fallbackMethodRetryFailure(DictionaryDTO dictionaryDTO , Throwable throwable){
+        return CompletableFuture.supplyAsync(() -> {
+            return  new ResponseEntity<>("All Retries are failed!!!", HttpStatus.INTERNAL_SERVER_ERROR);
         });
     }
 

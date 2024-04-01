@@ -33,7 +33,7 @@ public class TranslationController {
         log.info("Wait Started");
         // Simulate slow network behavior
         try {
-            Thread.sleep(5000); // Sleep for 5 seconds
+            Thread.sleep(50000); // Sleep for 5 seconds
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt(); // Restore interrupted status as true
             throw new TimeoutException("Operation timed out");

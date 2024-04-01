@@ -8,12 +8,15 @@ spring:
 
   application:
     name: translation-service
+  config:
+    import: configserver:http://localhost:9296
 
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
 
 #  instance:
 #    hostname: localhost
+
+
