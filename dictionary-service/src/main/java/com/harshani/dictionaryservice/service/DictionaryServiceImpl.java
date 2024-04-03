@@ -4,6 +4,7 @@ import com.harshani.dictionaryservice.dto.DictionaryDTO;
 import com.harshani.dictionaryservice.dto.SearchRequestDTO;
 import com.harshani.dictionaryservice.model.Dictionary;
 import com.harshani.dictionaryservice.repository.DictionaryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -13,6 +14,7 @@ import reactor.core.scheduler.Schedulers;
 import java.util.List;
 
 @Service
+@Slf4j
 public class DictionaryServiceImpl implements DictionaryService{
 
     @Autowired
@@ -32,6 +34,7 @@ public class DictionaryServiceImpl implements DictionaryService{
 
     public List<String> translateWord(DictionaryDTO dictionaryDTO){
 
+        log.info("Find the translations");
         //.uri("http://localhost:8080/api/v1/translations/find")
         Mono<String[]> translatedWordsMono = webClientBuilder.build()
                 .post()

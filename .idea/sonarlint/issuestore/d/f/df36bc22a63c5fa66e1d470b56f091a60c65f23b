@@ -1,3 +1,7 @@
 
 ‚
-java:S3655%"`Call "translatedResult.isPresent()" or "!translatedResult.isEmpty()" before accessing the value.(­š“Ùüÿÿÿÿ8ä´Á˜¾1
+java:S36550"`Call "translatedResult.isPresent()" or "!translatedResult.isEmpty()" before accessing the value.(­š“Ùüÿÿÿÿ8Ôªµœê1
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÕÊ•œê1
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8ÕÊ•œê1

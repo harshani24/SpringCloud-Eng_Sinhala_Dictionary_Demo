@@ -40,8 +40,8 @@ public class DictionaryController {
     @TimeLimiter(name="translation", fallbackMethod = "fallbackMethodTimeOut")
     @Retry(name = "translation", fallbackMethod = "fallbackMethodRetryFailure")
     public CompletableFuture<ResponseEntity<List<String>>> translateWord(@RequestBody DictionaryDTO dictionaryDTO){
-        log.info("Retry 1,2,3");
-        return CompletableFuture.supplyAsync(() -> {
+      log.info("Find the translated word");
+       return CompletableFuture.supplyAsync(() -> {
             try{
                 List<String> translatedWordList = dictionaryService.translateWord(dictionaryDTO);
                 return new ResponseEntity<>(translatedWordList, HttpStatus.CREATED);

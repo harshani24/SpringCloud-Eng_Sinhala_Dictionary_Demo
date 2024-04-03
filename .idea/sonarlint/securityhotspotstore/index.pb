@@ -51,3 +51,5 @@ E
 config-server/pom.xml,a\2\a2f9618c8ad821b143a07a29a9805fcb0b2df470
 ‚
 Rconfig-server/src/main/java/com/harshani/configserver/ConfigServerApplication.java,8\1\812515f6ae65a0438ef25484efa2e5d88ee61494
+—
+gtranslation-service/src/main/java/com/harshani/translationservice/controller/TranslationController.java,5\4\544ddf68c8dcff5625cb99b38b63e46fa9b96008

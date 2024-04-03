@@ -23,7 +23,18 @@ public class TranslationServiceImpl implements TranslationService{
     @Override
     public Translation createTranslationRecord(TranslationDTO translationDTO) {
         Translation translation = modelMapper.map(translationDTO,Translation.class);
-        return translationRepository.save(translation);
+
+        Optional<Translation> existingTranslation = translationRepository.findByWordAndSourceLanguageAndTargetLanguage(
+                translation.getWord(),
+                translation.getSourceLanguage(),
+                translation.getTargetLanguage()
+        );
+
+        if(!
+                existingTranslation.isPresent()){
+            return translationRepository.save(translation);
+        }
+        return null;
     }
 
     @Override

@@ -8,5 +8,7 @@ import java.util.Optional;
 
 public interface TranslationRepository extends MongoRepository<Translation, String> {
     Optional<Translation> findByWordAndSourceLanguageAndTargetLanguage(String word, String sourceLanguage, String targetLanguage);
+
+
 }
 

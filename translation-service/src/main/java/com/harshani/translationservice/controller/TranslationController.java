@@ -23,24 +23,29 @@ public class TranslationController {
 
     @PostMapping
     public ResponseEntity<Translation> createTranslationRecord(@RequestBody TranslationDTO translationDTO){
+        log.info("Create a record for translation");
         Translation translationRecord =  translationService.createTranslationRecord(translationDTO);
+        log.info("Translation record Created: " + translationRecord);
         return new ResponseEntity<>(translationRecord, HttpStatus.CREATED);
     }
 
 
     @PostMapping("/find")
     public ResponseEntity<List<String>> findTranslatedWord(@RequestBody SearchRequestDTO searchRequest) throws TimeoutException {
-        log.info("Wait Started");
-        // Simulate slow network behavior
-        try {
-            Thread.sleep(50000); // Sleep for 5 seconds
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // Restore interrupted status as true
-            throw new TimeoutException("Operation timed out");
-        }
-        log.info("Wait Ended");
+//        log.info("Wait Started");
+//        // Simulate slow network behavior
+//        try {
+//            Thread.sleep(50000); // Sleep for 5 seconds
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt(); // Restore interrupted status as true
+//            throw new TimeoutException("Operation timed out");
+//        }
+//        log.info("Wait Ended");
 
+        log.info("Search translation of word");
         List<String> translatedWordList = translationService.findTranslatedWord(searchRequest);
+        log.info("Retrived the translations for word");
+
         return  new ResponseEntity<>(translatedWordList, HttpStatus.OK);
     }
 }
