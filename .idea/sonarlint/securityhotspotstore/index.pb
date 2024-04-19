@@ -5,3 +5,15 @@ C
 api-gateway/pom.xml,2\b\2bfa2b108f2439e99e004f4085b58c22cf995f73
 J
 dictionary-service/pom.xml,6\a\6afd0b642dd979b62b6fa181667184db6fae9940
+I
+eureka-service/Dockerfile,1\b\1be715458596e7d31dae3c6096afc6ed57cb5628
+H
+config-server/Dockerfile,b\6\b61e3bf1cf202a99b9cf49c6d7e26c98df17134b
+F
+api-gateway/Dockerfile,9\5\9548e2ce3bdfe112d8c757987e1beebc1ecab5ed
+M
+dictionary-service/Dockerfile,3\8\38f53fa5191c66f4b0d1d89691c3da0d85ca09d1
+N
+translation-service/Dockerfile,c\b\cb4dc5d3b2f2fba4c7e78876df06584e51b4228b
+E
+config-server/pom.xml,a\2\a2f9618c8ad821b143a07a29a9805fcb0b2df470
