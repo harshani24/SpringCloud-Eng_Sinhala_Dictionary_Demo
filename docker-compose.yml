@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    image:  'harshani24/eureka-server:0.0.1'
+    container_name: eureka-server
+    ports:
+      - '8761:8761'
+  config-server:
+    image: 'harshani24/config-server:0.0.1'
+    container_name: config-server
+    ports:
+      - '9296:9296'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://host.docker.internal:9296/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://config-server:9296/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  api-gateway:
+    image: 'harshani24/api-gateway:0.0.1'
+    container_name: api-gateway
+    ports:
+      - '8085:8085'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://eureka-server:8761/eureka
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      config-server:
+        condition: service_healthy
+#    depends_on:
+#      - config-server
+
+
