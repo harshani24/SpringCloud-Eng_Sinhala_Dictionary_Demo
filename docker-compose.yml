@@ -2,12 +2,12 @@ version: '3.8'
 
 services:
   eureka-server:
-    image:  'harshani24/eureka-server:0.0.1'
+    image:  'harshani24/eureka-server:latest'
     container_name: eureka-server
     ports:
       - '8761:8761'
   config-server:
-    image: 'harshani24/config-server:0.0.1'
+    image: 'harshani24/config-server:latest'
     container_name: config-server
     ports:
       - '9296:9296'
@@ -22,7 +22,7 @@ services:
       timeout: 5s
       retries: 5
   api-gateway:
-    image: 'harshani24/api-gateway:0.0.1'
+    image: 'harshani24/api-gateway:latest'
     container_name: api-gateway
     ports:
       - '8085:8085'
@@ -34,5 +34,29 @@ services:
         condition: service_healthy
 #    depends_on:
 #      - config-server
+  translation-service:
+    image: 'harshani24/translation-service:latest'
+    container_name: translation-service
+    ports:
+      - '8081:8081'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://eureka-server:8761/eureka
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      config-server:
+        condition: service_healthy
+  dictionary-service:
+    image: 'harshani24/dictionary-service:latest'
+    container_name: dictionary-service
+    ports:
+      - '8080:8080'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://eureka-server:8761/eureka
+      - CONFIG_SERVER_HOST=config-server
+      - DB_HOST=dictionary-service
+    depends_on:
+      config-server:
+        condition: service_healthy
+
 
 

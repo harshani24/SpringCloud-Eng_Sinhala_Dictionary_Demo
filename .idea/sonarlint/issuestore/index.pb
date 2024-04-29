@@ -21,7 +21,9 @@ B
 docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
 ‚
 Rconfig-server/src/main/java/com/harshani/configserver/ConfigServerApplication.java,8\1\812515f6ae65a0438ef25484efa2e5d88ee61494
-~
-Nconfig-server/src/main/java/com/harshani/configserver/config/ConfigWaiter.java,1\a\1a6f9011c4f743f7e3d3ab427608444674ed3991
-w
-Gconfig-server/src/main/java/com/harshani/configserver/ConfigWaiter.java,b\0\b09d610ece2adb03b95862b540c520f734fab8de
+F
+eureka-service/pom.xml,3\e\3e68d6f421b04d410578ccc97a8773a1a687a9ec
+K
+translation-service/pom.xml,d\b\db5e1599607436f0ade0e3e75788a1ede761fc9c
+Q
+!docker-compose-with-jib-build.yml,e\d\edcf3fac9156bbdcaf43f5d34a458bad064c102c

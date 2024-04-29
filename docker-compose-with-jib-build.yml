@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    image:  'harshani24/eureka-server:latest'
+    container_name: eureka-server
+    ports:
+      - '8761:8761'
+  config-server:
+    image: 'harshani24/config-server:latest'
+    container_name: config-server
+    ports:
+      - '9296:9296'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+
+
+
